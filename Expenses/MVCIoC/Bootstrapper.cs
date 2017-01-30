@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Expenses.Services;
+using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Mvc;
 using System.Linq;
 using System.Web.Mvc;
@@ -15,7 +16,7 @@ namespace Expenses.MVCIoC
         private static IUnityContainer BuildUnityContainer()
         {
             var container = new UnityContainer();
-            // container.RegisterType<IExpensesServices, ExpensesServices>();
+            container.RegisterType<IExpensesServices, ExpensesServices>();
             MvcUnityContainer.Container = container;
             return container;
         }
