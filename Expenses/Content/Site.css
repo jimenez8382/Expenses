@@ -1,0 +1,58 @@
+﻿
+/* Notification styles
+    -----------------------------------------------------------*/
+.notificationbox {
+    z-index: 1000;
+    padding: 12px 10px 10px 30px;
+    margin-top: 10px;
+    box-shadow: 5px 5px 10px #000;
+    display: none;
+    width: 550px;
+}
+.notibox-success {
+    color: #060;
+    background: #04f710 url(../../Content/Notifications/Images/ok.gif) no-repeat 8px 12px;
+}
+.notibox-error {
+    color: #c00;
+    background: #fcc url(../../Content/Notifications/Images/fail.gif) no-repeat 8px 12px;
+}
+
+.notibox-warning {
+    color: #c60;
+    background: #ffc url(../../Content/Notifications/Images/warn.gif) no-repeat 8px 12px;
+}
+
+.delete {
+    color: #ee6e73 !important;
+}
+
+.page-footer {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+}
+.highlight {
+    text-align: right;
+}
+.formHeader {
+    background: url(../../Content/Notifications/Images/body_bg.jpg) repeat-x left bottom #e5e5e5;
+    -moz-box-shadow: 0 0 2px rgba(255, 255, 255, 0.6) inset;
+    -webkit-box-shadow: 0 0 2px rgba(255, 255, 255, 0.6) inset;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.6) inset;
+}
+
+ .ItemChanged {
+     color:forestgreen;
+    font-size: x-large ;
+    }
+ @media print { 
+ /* All your print styles go here */
+ #header, footer, #nav,.nav-wrapper,#index-banner,.light-blue, .lighten-1,.waves-effect { display: none !important; } 
+}
+ @page {
+  size: landscape;
+  margin: 0px 0px 0px 0px;
+}

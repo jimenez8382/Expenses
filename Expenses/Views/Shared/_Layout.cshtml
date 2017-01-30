@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>Calcule your Expenses - Expenses</title>
+    <!-- CSS  -->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css" media="screen,projection,print" />
+    <link type="text/css" rel="stylesheet" href="http://demo.geekslabs.com/materialize/v3.1/js/plugins/data-tables/css/jquery.dataTables.min.css" media="screen,projection,print" />
+    <link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" media="screen,projection,print" />
+    <link rel="icon" type="image/png" href="~/Content/img/money-logo.png" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="light-blue lighten-1" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="@Url.Action("Index", "Expenses")" class="brand-logo">
+                <img style="width:35%" src="~/Content/img/money-logo.png" />
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    @Html.ActionLink("Report", "Index", "Report")
+                </li>
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <h2 class="header center orange-text"></h2>
+        </div>
+    </div>
+    <div class="container">
+        @if (TempData["Notification"] != null)
+        {
+            <div id="NotificationBox" class="@TempData["NotificationClass"]" style="display: none">
+                @TempData["Notification"]
+            </div>
+        }
+        <div class="section">
+
+            <!--   Icon Section   -->
+            @RenderBody()
+        </div>
+        <div class="section">
+
+        </div>
+    </div>
+
+    <footer class="page-footer orange">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Hoy much have you spend this year?</h5>
+                    <p class="grey-text text-lighten-4">The purpose of this Website is to show the use of Mvc, Entity Framework and Materialize in an application with vial Studio .NET</p>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text"></h5>
+                    <ul>
+                        <li><a class="white-text" href="#!"></a></li>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text"></h5>
+                    <ul>
+                        <li><a class="white-text" href="#!"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+            </div>
+        </div>
+    </footer>
+    <!--  Scripts-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script type="text/javascript" src="http://materializecss.com/js/init.js"></script>
+    <script type="text/javascript" src="http://demo.geekslabs.com/materialize/v3.1/js/plugins/data-tables/js/jquery.dataTables.min.js"></script>
+</body>
+</html>
+
+<script language="javascript" type="text/javascript">
+    //Used to display and close the system notifications
+    $(document).ready(function () {
+        var Changed = '@TempData["Changed"]';
+        if (Changed != '') {
+            $("#" + '@TempData["Changed"]').addClass("ItemChanged").delay(2000).queue(function () {
+                $(this).removeClass("ItemChanged").dequeue();
+            });
+        }
+        $("#NotificationBox").fadeIn(500);
+        $("#NotificationBox").delay(1000).slideUp(500);
+
+    });
+</script>
