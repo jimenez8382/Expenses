@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Expenses.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,14 @@ namespace Expenses.Controllers
 {
     public class ExpensesController : Controller
     {
-        // GET: Expenses
-        public ActionResult Index()
+        private readonly IExpensesServices _service;
+        public ExpensesController(IExpensesServices service)
         {
-            return View();
+            this._service = service;
+        }
+        public ActionResult Index()
+        {// return the complete Expense List
+            return View(_service.GetExpenses());
         }
     }
 }
