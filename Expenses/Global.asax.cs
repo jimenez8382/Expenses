@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Expenses.MVCIoC;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,10 @@ namespace Expenses
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //Initialize IoC container/Unity
+            Bootstrapper.Initialise();
+            //Register our custom controller factory
+            ControllerBuilder.Current.SetControllerFactory(typeof(ControllerFactory));
         }
     }
 }
