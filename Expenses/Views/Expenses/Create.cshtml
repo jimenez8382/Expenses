@@ -1,0 +1,65 @@
+﻿@model Expenses.Data.Models.Expenses
+@{
+    <script src="@Url.Content("~/Scripts/jquery.validate-vsdoc.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+    <head>
+        <style>
+            .rowAdded {
+                background-color: darkseagreen;
+            }
+        </style>
+    </head>
+}
+<form id="form-myExpenses" action="@Url.Action("Create")" method="POST" enctype="multipart/form-data" class="col s12">
+    <div class="row">
+        <nav class="light-blue lighten-1" role="navigation">
+            <div class="nav-wrapper container">
+                <h4></h4>
+            </div>
+        </nav>
+        <div class="card-panel">
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">perm_contact_calendar</i>
+                    @Html.TextBoxFor(x => x.Date, new { type = "date", @class = "datepicker validate", @required = "", @aria_required = "true" })
+                    @Html.LabelFor(x => x.Date, new { @data_error = "wrong", @data_success = "Ok" })
+                </div>
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">attach_money</i>
+                    @Html.TextBoxFor(x => x.Amount, new { min = 1, type = "number" })
+                    @Html.LabelFor(x => x.Amount, new { @data_error = "wrong", @data_success = "Ok" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">comment</i>
+                    @Html.TextArea("Description", new { @id = "Description", @class = "materialize-textarea", })
+                    @Html.LabelFor(x => x.Description, new { @data_error = "wrong", @data_success = "Ok" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                </div>
+                <div class="col s12 m6 l3 ">
+                    <a class="btn cyan waves-effect waves-light right" href="@Url.Action("Index", "Expenses" )">Cancel</a>
+                </div>
+                <div class="col s12 m4 l2">
+                    <input class="btn cyan waves-effect waves-light right" type="submit" value="Save" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
+        $(".datepicker").val("");
+});
+</script>
+
+
