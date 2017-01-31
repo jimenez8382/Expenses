@@ -45,5 +45,41 @@ namespace Expenses.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Edit(long Id)
+        {
+            // find the row we need to update and return new ExpenseItem.
+            var item = _service.GetItem(Id);
+            var editIt = new Data.Models.Expenses
+            {
+                Amount = item.Amount,
+                Date = item.Date,
+                Description = item.Description,
+                Id = item.Id
+            };
+            return View(editIt);
+        }
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Edit(Data.Models.Expenses model)
+        {
+            try
+            { // Adding succesful message 
+                var item = _service.EditItem(model);
+                if (item > 0)
+                {
+                    this.TempData["Changed"] = model.Id;
+                    this.TempData["Notification"] = "Your record was updated successfully.";
+                    this.TempData["NotificationClass"] = "notificationbox notibox-success";
+                }
+            }
+            catch (Exception ex)
+            { //adding error message
+                this.TempData["Notification"] = "We had a problem to Update your Record,Verify your information and try again.";
+                this.TempData["NotificationClass"] = "notificationbox notibox-error";
+            }
+            return RedirectToAction("Index");
+        }
+
     }
 }
