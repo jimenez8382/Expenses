@@ -81,5 +81,22 @@ namespace Expenses.Controllers
             return RedirectToAction("Index");
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult Delete(long Id)
+        {
+            try
+            {
+                var item = _service.DeleteItem(Id);
+                // Adding succesful message 
+                this.TempData["Notification"] = "Your record was deleted successfully.";
+                this.TempData["NotificationClass"] = "notificationbox notibox-success";
+            }
+            catch (Exception ex)
+            { // Adding error message 
+                this.TempData["Notification"] = "We had a problem to delete your Record,try again.";
+                this.TempData["NotificationClass"] = "notificationbox notibox-error";
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
