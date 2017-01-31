@@ -1,0 +1,73 @@
+﻿@model Expenses.Data.Models.ExpenseReport
+@{
+    ViewBag.Title = "Home Page";
+    <script src="@Url.Content("~/Scripts/jquery.validate-vsdoc.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+}
+<form id="form-Report" action="@Url.Action("Index")" method="get" class="formValidate col s12">
+    <div class="row">
+        <div class="card-panel">
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">perm_contact_calendar</i>
+                    @Html.TextBoxFor(x => x.FiscalYear, new { max = Model.Year, type = "number", @class = "validate toolTip", required = "", aria_required = "true" })
+                    <label for="FiscalYear" data-error="Type a valid year( less or equal than @Model.Year)" data-success="Ok">Fiscal Year</label>
+                </div>
+                <div class="input-field col s6">
+                    <input class="btn cyan waves-effect waves-light right toolTip" type="submit" value="Create Report" />
+                    @if (Model.Report.Count > 0)
+                    {
+                        <a class="btn cyan waves-effect waves-light right" onClick="window.print();return false" href="#">Print</a>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div id="ReportContainer" class="input-field col s12">
+                    <table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.Report)
+                            {
+                                <tr>
+                                    <td>@item.Description</td>
+                                    <td>@item.Date.ToShortDateString()</td>
+                                    <td style="text-align:right">@String.Format("{0:C0} ", @item.Amount)</td>
+                                </tr>
+                            }
+                            <tr>
+                                <td colspan="2" style="text-align:right">Total</td>
+                                <td style="text-align:right;font:bold 14px">@String.Format("{0:C0} ", @Model.Report.Sum(x => x.Amount))</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#FiscalYear').keyup(function () {
+            if ($('#FiscalYear').val() > 0) {
+                var nextYear = parseInt($('#FiscalYear').val()) + parseInt(1);
+                $(".toolTip").tooltip({ delay: 50, tooltip: "The report will show up all the records saved between 'April 4," + $('#FiscalYear').val() + " and April 4," + nextYear + "'" });
+            } else {
+                $(".toolTip").tooltip({ delay: 50, tooltip: "Type a Valid Fiscal Year" });
+            }
+        });
+
+});
+</script>
+
+
