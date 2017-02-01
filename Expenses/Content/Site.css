@@ -50,7 +50,14 @@
     }
  @media print { 
  /* All your print styles go here */
- #header, footer, #nav,.nav-wrapper,#index-banner,.light-blue, .lighten-1,.waves-effect { display: none !important; } 
+ footer,.waves-effect { display: none !important; }
+    img {
+       width:8% !important;
+       height:8% !important;
+    }
+    .headerReport {
+         display:inline !important; 
+    }
 }
  @page {
   size: landscape;

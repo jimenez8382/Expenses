@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Expenses = Expenses.Data.Models.Expenses;
+using Expenses.Data.Models;
+using System;
+
 namespace Expenses.Services
 {
     public interface IExpensesServices
@@ -11,6 +14,7 @@ namespace Expenses.Services
         int EditItem(Data.Models.Expenses model);
         int DeleteItem(long Id);
         List<Data.Models.Expenses> GetExpenses();
+        List<Data.Models.Expenses> GetExpensesByFiscalYear(int Year);
     }
     public class ExpensesServices : IExpensesServices
     {
@@ -79,6 +83,18 @@ namespace Expenses.Services
             {
                 return 0;
             }
+        }
+
+        public List<Data.Models.Expenses> GetExpensesByFiscalYear(int Year)
+        {
+            if (Year > 0)
+            {
+                string date = "04/01/" + Year.ToString(); // the fiscal year Start on April 1 of the given year
+                DateTime dtInitial = Convert.ToDateTime(date);
+                DateTime dtEnd = Convert.ToDateTime(date).AddYears(1);
+                return  _db.Expenses.Where(x => x.Date >= dtInitial).Where(x => x.Date < dtEnd).ToList();
+            }
+            return _db.Expenses.ToList();
         }
     }
 }

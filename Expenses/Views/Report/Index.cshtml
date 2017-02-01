@@ -7,22 +7,33 @@
     <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
 }
 <form id="form-Report" action="@Url.Action("Index")" method="get" class="formValidate col s12">
+
     <div class="row">
+        
         <div class="card-panel">
-            <div class="row">
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">perm_contact_calendar</i>
-                    @Html.TextBoxFor(x => x.FiscalYear, new { max = Model.Year, type = "number", @class = "validate toolTip", required = "", aria_required = "true" })
-                    <label for="FiscalYear" data-error="Type a valid year( less or equal than @Model.Year)" data-success="Ok">Fiscal Year</label>
+            <div class="row headerReport" style="display:inline" >
+                <div class="input-field col s12">
+                    <img style="width:8% !important" src="~/Content/img/money-logo.png" />
+                    <h5>Expenses Report</h5>
                 </div>
-                <div class="input-field col s6">
-                    <input class="btn cyan waves-effect waves-light right toolTip" type="submit" value="Create Report" />
-                    @if (Model.Report.Count > 0)
-                    {
-                        <a class="btn cyan waves-effect waves-light right" onClick="window.print();return false" href="#">Print</a>
-                    }
+                <div class="Description input-field col s12">
+
                 </div>
-            </div>
+                </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">perm_contact_calendar</i>
+                            @Html.TextBoxFor(x => x.FiscalYear, new { max = Model.Year, type = "number", @class = "validate toolTip", required = "", aria_required = "true" })
+                            <label for="FiscalYear" data-error="Type a valid year( less or equal than @Model.Year)" data-success="Ok">Fiscal Year</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input class="btn cyan waves-effect waves-light right toolTip" type="submit" value="Create Report" />
+                            @if (Model.Report.Count > 0)
+                            {
+                                <a class="btn cyan waves-effect waves-light right" onClick="window.print();return false" href="#">Print</a>
+                            }
+                        </div>
+                    </div>
             <div class="row">
                 <div id="ReportContainer" class="input-field col s12">
                     <table id="data-table-row-grouping" class="display" cellspacing="0" width="100%">
@@ -58,10 +69,15 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        if ($('#FiscalYear').val() > 0) {
+            var nextYear = parseInt($('#FiscalYear').val()) + parseInt(1);
+            $(".Description").text("Expenses from 'April 4," + $('#FiscalYear').val() + " to March 31," + nextYear);
+        }
         $('#FiscalYear').keyup(function () {
             if ($('#FiscalYear').val() > 0) {
                 var nextYear = parseInt($('#FiscalYear').val()) + parseInt(1);
-                $(".toolTip").tooltip({ delay: 50, tooltip: "The report will show up all the records saved between 'April 4," + $('#FiscalYear').val() + " and April 4," + nextYear + "'" });
+                $(".toolTip").tooltip({ delay: 50, tooltip: "The report will show up all the records saved between 'April 4," + $('#FiscalYear').val() + " and March 31," + nextYear + "'" });
+                $(".Description").text("Expenses from 'April 4," + $('#FiscalYear').val() + " to March 31," + nextYear);
             } else {
                 $(".toolTip").tooltip({ delay: 50, tooltip: "Type a Valid Fiscal Year" });
             }

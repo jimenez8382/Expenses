@@ -7,6 +7,6 @@ namespace Expenses.Data
         public ExpensesDbContext() : base("name=MyContext")
         {
         }
-        public DbSet<Models.Expenses> Expenses { get; set; }
+        public virtual DbSet<Models.Expenses> Expenses { get; set; }
     }
 }
