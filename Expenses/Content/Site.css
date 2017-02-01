@@ -49,8 +49,8 @@
     font-size: x-large ;
     }
  @media print { 
- /* All your print styles go here */
- footer,.waves-effect { display: none !important; }
+ /* All your print styles go here */  
+ .light-blue,.nav-wrapper,footer,.waves-effect { display: none !important; }
     img {
        width:8% !important;
        height:8% !important;
