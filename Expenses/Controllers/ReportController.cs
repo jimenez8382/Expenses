@@ -22,10 +22,7 @@ namespace Expenses.Controllers
             // The generated report will show all records inserted between April 1 of the given year and April 1 of the next year.
             if (model.FiscalYear > 0)
             {
-                string date = "04/01/" + model.FiscalYear.ToString();
-                DateTime dtInitial = Convert.ToDateTime(date);
-                DateTime dtEnd = Convert.ToDateTime(date).AddYears(1);
-                var report = _service.GetExpenses().Where(x => x.Date >= dtInitial).Where(x => x.Date < dtEnd).ToList();
+                var report = _service.GetExpensesByFiscalYear(model.FiscalYear);
                 var ItemList = new Data.Models.ExpenseReport();
                 foreach (var item in report)
                 {
