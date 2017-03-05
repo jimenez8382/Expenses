@@ -54,6 +54,14 @@
                 $('td:eq(3)', row).html('<a href="' + Edit + '"><i class="Small material-icons">mode_edit</i></a>' +
                     '<a class="delete"' + onclick + '   data-Id=' + data[3] + ' href="#Confirm"><i class="Small material-icons">delete</i></a>');
             },
+            "initComplete": function (settings, json) {
+                var Changed = '@TempData["Changed"]';
+                if (Changed != '') {
+                    $("#" + '@TempData["Changed"]').addClass("ItemChanged").delay(2000).queue(function () {
+                        $(this).removeClass("ItemChanged").dequeue();
+                    });
+                }
+            }
         });
 
         $('#md1_YesBtn').click(function () {
