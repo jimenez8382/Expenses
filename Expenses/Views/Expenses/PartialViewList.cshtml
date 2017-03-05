@@ -47,7 +47,7 @@
                         null
             ],
             "rowCallback": function (row, data, index) {
-                $(nRow).attr('id', data[3]);
+                $(row).attr('id', data[3]);
                 var onclick = 'onclick="document.getElementById(' + "'md1_YesBtn'" + ').setAttribute(' + "'data-Id'" + ',' + data[3] + ');"'
                 var Edit = "@Url.Action("Edit", "Expenses")" + "/" + data[3];
                 var Delete = "@Url.Action("Delete", "Expenses")" + "/" + data[3];
