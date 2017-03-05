@@ -13,19 +13,6 @@
             </tr>
         </thead>
         <tbody>
-
-            @foreach (var item in Model)
-            {
-                <tr id="@item.Id">
-                    <td>@item.Description</td>
-                    <td>@item.Date.ToShortDateString()</td>
-                    <td style="text-align:right">@String.Format("{0:C0} ", @item.Amount)</td>
-                    <td style="text-align:right">
-                        <a href="@Url.Action("Edit", "Expenses" , new { Id=@item.Id })"><i class="Small material-icons">mode_edit</i></a>
-                        <a class="delete" onclick="document.getElementById('md1_YesBtn').setAttribute('DeleteId', @item.Id);" href="#Confirm" data-href="@Url.Action("Delete", "Expenses" , new { Id=@item.Id })"><i class="Small material-icons">delete</i></a>
-                    </td>
-                </tr>
-            }
         </tbody>
     </table>
 </div>
@@ -42,15 +29,36 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#data-table-row-grouping').DataTable({
-            columnDefs: [{ type: 'currency', targets: 2 }],
-            "createdRow": function (row, data, index) {
-            }
+        $('#Confirm').modal();
+        var oTable = $('#data-table-row-grouping').dataTable({
+            "bServerSide": true,
+            "paging": true,
+            "iDisplayLength": 10,
+            "aLengthMenu": [[10, 15, 25, 35, 50, 100, -1], [10, 15, 25, 35, 50, 100, "All"]],
+            "sAjaxSource": "Expenses/AjaxHandler",
+            "bProcessing": true,
+            columnDefs: [
+            { type: 'currency', targets: 2 }
+            ],
+            "aoColumns": [
+                        null,
+                        { "sType": "date" },
+                        { "sType": "currency" },
+                        null
+            ],
+            "rowCallback": function (row, data, index) {
+                var onclick = 'onclick="document.getElementById(' + "'md1_YesBtn'" + ').setAttribute(' + "'data-Id'" + ',' + data[3] + ');"'
+                var Edit = "@Url.Action("Edit", "Expenses")" + "/" + data[3];
+                var Delete = "@Url.Action("Delete", "Expenses")" + "/" + data[3];
+                $('td:eq(3)', row).html('<a href="' + Edit + '"><i class="Small material-icons">mode_edit</i></a>' +
+                    '<a class="delete"' + onclick + '   data-Id=' + data[3] + ' href="#Confirm"><i class="Small material-icons">delete</i></a>');
+            },
         });
+
         $('#md1_YesBtn').click(function () {
             var resourceUrl = '@Url.Action("Delete", "Expenses", new { area = "" })';
             $('#Confirm').modal('close');
-            window.location = resourceUrl + "/" + $(this).attr("DeleteId");
+            window.location = resourceUrl + "/" + $(this).attr("data-id");
         });
 });
 </script>

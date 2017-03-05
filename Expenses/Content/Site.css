@@ -1,6 +1,9 @@
 ﻿
-/* Notification styles
+/* Notification styles ..
     -----------------------------------------------------------*/
+select {
+    display: inline-block !important;
+}
 .notificationbox {
     z-index: 1000;
     padding: 12px 10px 10px 30px;
@@ -62,4 +65,8 @@
  @page {
   size: landscape;
   margin: 0px 0px 0px 0px;
+}
+
+ select {
+    display: inline-block !important;
 }

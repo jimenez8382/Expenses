@@ -1,11 +1,9 @@
-﻿using Expenses.MVCIoC;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Expenses.MVCIoC.simpleinjector;
 using System.Web.Mvc;
 using System.Web.Routing;
-
+using Expenses.Services;
+using System.Data.Entity;
+using Expenses.Data;
 namespace Expenses
 {
     public class MvcApplication : System.Web.HttpApplication
@@ -14,10 +12,13 @@ namespace Expenses
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //Initialize IoC container/Unity
-            Bootstrapper.Initialise();
+            //Ioc S I M P L E   I N J E C T O R
+            Injector.Initialise(); //if you want to user Unity,coment this line and discoment the lines below
+
+            //If you want to use Unity discoment this line .Initialize IoC container/Unity
+            // Bootstrapper.Initialise();
             //Register our custom controller factory
-            ControllerBuilder.Current.SetControllerFactory(typeof(ControllerFactory));
+            // ControllerBuilder.Current.SetControllerFactory(typeof(ControllerFactory));
         }
     }
 }

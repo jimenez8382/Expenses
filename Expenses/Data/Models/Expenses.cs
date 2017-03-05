@@ -14,7 +14,7 @@ namespace Expenses.Data.Models
         [Display(Name = "Date")]
         public DateTime Date { get; set; }
         [Required]
-        [Display(Name = "Expenses")]
+        [Display(Name = "Amount")]
         [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
         public double Amount { get; set; }
         [Required]
